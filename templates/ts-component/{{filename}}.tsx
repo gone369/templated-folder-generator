@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as style from './index.less';
+import * as style from './{{filename}}.less';
 
 interface IProps {
   children?: JSX.Element[];
