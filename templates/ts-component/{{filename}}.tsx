@@ -34,3 +34,5 @@ class {{component.name.capitalizedSnakeCase}} extends React.Component<IProps>{
     );
   }
 }
+
+export default {{component.name.capitalizedSnakeCase}};
