@@ -43,7 +43,17 @@ function generateAction(program) {
 
       const capitalizedSnakeCaseName = snakeCaseName[0].toUpperCase() + snakeCaseName.slice(1);
 
+      let userContext = {};
+      try{
+        userContext = JSON.parse(program.context);
+      } catch(e){
+        console.log('invalid JSON string provided to custom context. ( -c <invalid context> ).');
+        console.log('generate failed.');
+        process.exit(1);
+      }
+
       const context = {
+        ...userContext,
         component: {
           name: {
             original: componentName,
@@ -87,6 +97,7 @@ function generateAction(program) {
 
     });
     console.log('done');
+    process.exit(0);
   }
 }
 

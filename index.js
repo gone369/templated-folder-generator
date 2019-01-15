@@ -25,10 +25,6 @@ program
   .option("-X, --postfix <name>", "add postfix to component file name")
   .option("-d, --dryrun", "dry run")
 
-//program.on('option:verbose', function () {
-//process.env.VERBOSE = this.verbose;
-//});
-
 // error on unknown commands
 //
 
