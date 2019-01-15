@@ -28,7 +28,7 @@ class {{component.name.capitalizedSnakeCase}} extends React.Component<IProps>{
   */
   render(){
     return (
-      <div className={style.{{component.name.snakeCase}}>
+      <div className={style.{{component.name.snakeCase}} }>
         {{component.name.original}}
       </div>
     );
