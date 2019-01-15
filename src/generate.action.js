@@ -79,8 +79,6 @@ function generateAction(program) {
 
       const compiledFile = hbsTemplate(context);
 
-      console.log('here',fileName);
-
       const hbsFilenameTemplate = hbs.compile(fileName);
       const compiledFileName = hbsFilenameTemplate(context);
       let fileType;
@@ -105,7 +103,6 @@ function generateAction(program) {
           return sum.concat(part);
         }
       },[]).join('.');
-      console.log(fn);
 
       const destFile = Path.resolve(process.cwd(),dest,`${program.prefix?program.prefix+'.':''}${fn}.${program.postfix?program.postfix+'.':''}${fileType}`);
 
