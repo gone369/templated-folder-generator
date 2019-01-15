@@ -10,6 +10,10 @@ program
   .version(packageJSON.version, "-v, --version")
   .option("-p, --path <templatePath>", "custom template folder path")
   .option(
+    "-N, --filename <filename>",
+    "change the name of the file (default is 'index')"
+  )
+  .option(
     "-n, --name <name>",
     "change the name of the component (default is based on dest dir name)"
   )
@@ -18,7 +22,7 @@ program
     "pass in a json string to add to handlebar context when compiling template output"
   )
   .option(
-    "-f, --filetype <map>",
+    "-f, --filetypemap <map>",
     "give a filetype map to change the file types of templates"
   )
   .option("-x, --prefix <name>", "add prefix to component file name")

@@ -6,6 +6,12 @@ const { last,getTemplateNamesFromRootPaths,getTemplateDirs } = require('./helper
 
 function generateAction(program) {
   return function(template = "default", dest = ".", options){
+
+    //defaults
+    program.filename = program.filename || 'index';
+
+
+
     const targetPath = Path.resolve(process.cwd(), dest);
     const targetDir = options.name || Path.dirname(targetPath);
 
@@ -20,7 +26,7 @@ function generateAction(program) {
     })
     if (targetTemplateCategory === null) {
       console.error(
-        "template does not exist. run the 'templates' command to see all availble templates"
+        "template does not exist. Run 'rgen templates' to see all available templates"
       );
       process.exit(1);
     }
@@ -35,7 +41,9 @@ function generateAction(program) {
       const hbsTemplate = hbs.compile(file);
 
       //get cwd folder name
-      let componentName = typeof program.name === 'string'? program.name : last(process.cwd().split('/'));
+      const dirName = last(process.cwd().split('/'));
+      const userDefinedName = program.name;
+      let componentName = typeof userDefinedName === 'string'? userDefinedName : dirName;
 
       const hypenName = componentName.replace(/([a-z][A-Z])/g, function (g) { return g[0] + '-' + g[1].toLowerCase() });
       lowerCasedHypenName = hypenName[0].toLowerCase() + hypenName.slice(1);
@@ -44,12 +52,14 @@ function generateAction(program) {
       const capitalizedSnakeCaseName = snakeCaseName[0].toUpperCase() + snakeCaseName.slice(1);
 
       let userContext = {};
-      try{
-        userContext = JSON.parse(program.context);
-      } catch(e){
-        console.log('invalid JSON string provided to custom context. ( -c <invalid context> ).');
-        console.log('generate failed.');
-        process.exit(1);
+      if(typeof program.context !== 'undefined'){
+        try{
+          userContext = JSON.parse(program.context);
+        } catch(e){
+          console.log('invalid JSON string provided to custom context. ( -c <invalid context> ). Given ',program.context);
+          console.log('generate failed.');
+          process.exit(1);
+        }
       }
 
       const context = {
@@ -62,22 +72,40 @@ function generateAction(program) {
             capitalizedSnakeCase: capitalizedSnakeCaseName,
           },
         },
-        name: componentName
+        filename: program.filename,
+        dirName,
+        userDefinedName
       };
 
       const compiledFile = hbsTemplate(context);
 
+      console.log('here',fileName);
+
       const hbsFilenameTemplate = hbs.compile(fileName);
       const compiledFileName = hbsFilenameTemplate(context);
       let fileType;
+
+      let fileTypeMap = null;
+
+      if(program.filetypemap){
+        try{
+          fileTypeMap = JSON.parse(program.filetypemap);
+        } catch(e){
+          console.log('invalid JSON string provided to filetype map. ( -f <invalid map> ). Given ',program.filetypemap);
+          console.log('generate failed.');
+          process.exit(1);
+        }
+      }
+
       const fn = compiledFileName.split('.').reduce(function(sum,part,i,arr){
         if(i === arr.length -1){
-          fileType = program.filetype || part;
+          fileType = fileTypeMap === null? part : (typeof fileTypeMap[part] === 'undefined' ? part : fileTypeMap[part]);
           return sum;
         } else {
           return sum.concat(part);
         }
       },[]).join('.');
+      console.log(fn);
 
       const destFile = Path.resolve(process.cwd(),dest,`${program.prefix?program.prefix+'.':''}${fn}.${program.postfix?program.postfix+'.':''}${fileType}`);
 
