@@ -13,7 +13,7 @@ const {{component.name.capitalizedSnakeCase}}: React.StatelessComponent<IProps> 
   );
 };
 
-{{component.name.capitalizedSnakeCase}}.defaultProps = {
+{{component.name.capitalizedSnakeCase}}.defaultProps : IProps = {
   className: ''
 };
 

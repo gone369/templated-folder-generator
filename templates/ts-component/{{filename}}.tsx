@@ -10,9 +10,9 @@ interface IState {
 }
 
 class {{component.name.capitalizedSnakeCase}} extends React.Component<IProps>{
-  static defaultProps = {
+  static defaultProps : IProps = {
   }
-  state = {
+  state : IState = {
     foo: false
   }
   /*
