@@ -2,77 +2,78 @@ React Component Template Generator
 ==================================
 
 # Installation
-```
+```bash
 npm install git+ssh://git@gitlab.alipay-inc.com:xun.xc/react-component-template-generator.git
 ```
 
 # Quick Start
-### Generating Components
 
-```
+## Generating Components
+
+```bash
 cd path/to/my/new/react/component/directory
 rgen g ts-component
 ```
 
 or
 
-```
+```bash
 rgen g ts-component path/to/my/new/react/component/directory
 ```
 
-### Generating Components with custom name:
-```
+## Generating Components with custom name:
+```bash
 cd path/to/my/new/react/component/directory
 rgen g ts-component -n super-cool-component
 ```
 
-or
+## Generating Components with custom template folder
 
-```
-rgen g ts-component path/to/my/new/react/component/directory -n super-cool-component
-```
-
-
-### Generating Components with custom template folder
-
-```
-cd path/to/my/new/react/component/directory
-rgen g my-template -p path/to/my/custom/template/folder
-```
-
-###### template folder structure:
+Example:
+1. create a folder with the below structure within your project
+#### template folder structure:
 ```
 ├── templates
-│   ├── ts-component
-│   │   ├── {{filename}}.d.less.ts
+│   ├── my-less-template
+│   │   ├── {{filename}}.js
 │   │   ├── {{filename}}.less
-│   │   └── {{filename}}.tsx
-│   ├── ts-element
-│   │   ├── {{filename}}.d.less.ts
-│   │   ├── {{filename}}.less
-│   │   └── {{filename}}.tsx
+│   ├── my-scss-template
+│   │   ├── {{filename}}.js
+│   │   ├── {{filename}}.scss
 ```
 
-### Check Available Templates
-
-
+2. Execute below commands to generate from your custom template
+```bash
+cd path/to/my/new/react/component/directory
+rgen g my-less-template -p path/to/my/custom/template/folder
 ```
+Please Refer to [Template Creation](#template-creation) for how to create templates
+
+## Check Available Templates
+```bash
 rgen t
 ```
-
 ##### Checking Available Templates with your own template dir
-```
+```bash
 rgen t -p path/to/my/custom/template/folder
 ```
 
-### Dry Run (won't generate file)
-```
+## Dry Run (won't generate file)
+```bash
 rgen g my-template -d
 ```
 
+## Custom Template Variables
+
+please refer to [user defined context section](#user-defined-context)
+
+## Custom File Type Mapping
+
+please refer to [User Defined File Type Mapping](#user-defined-file-type-mapping)
+
 # Usage
 
-Help: 
+Help:
 ```
 Usage: rgen [options] [command]
 
@@ -97,12 +98,11 @@ Commands:
 
 # Template Creation
 
-rctg uses [handlebars.js](https://handlebarsjs.com/)
+rctg uses [handlebars.js](https://handlebarsjs.com/) syntax.
 
 ## Default Template Variables:
 
-
-### Example Template
+## Example Template
 
 ```js
 import * as React from 'react';
@@ -144,9 +144,9 @@ class {{component.name.capitalizedSnakeCase}} extends React.Component<IProps>{
 ```
 
 
-### User Defined Context
+## User Defined Context
 
-Suppose you have a template: 
+Suppose you have a template:
 
 ```js
 function Person(){
@@ -161,7 +161,7 @@ you can provide custom context like so:
 rgen g my-template -c '{"person":{ name:"lao da",age:"40"}'
 ```
 
-this will generate: 
+this will generate:
 ```js
 function Person(){
   this.name = "lao da";
@@ -169,7 +169,7 @@ function Person(){
 }
 ```
 
-rctg comes with a default set of context. Based either by the current working directory name (process.cwd()) or given -n --name <name> argument  
+rctg comes with a default set of context. Based either by the current working directory name (process.cwd()) or given -n --name <name> argument
 
 suppose the user is in /Desktop/myProject/myComponent. But the user gave a name arg `-n myCoolComponent`. The context will be as follows:
 
@@ -186,13 +186,13 @@ const context = {
   },
   filename: 'index',
   dirName: 'myComponent',
-  userDefinedName: 'myCoolComponent
+  userDefinedName: 'myCoolComponent'
 };
 ```
 
-##### 
+####
 
-### Custom File Type Mapping 
+## User Defined File Type Mapping
 
 
 //TODO
