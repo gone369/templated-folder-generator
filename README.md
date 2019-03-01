@@ -18,7 +18,7 @@ and use it with npm scripts
 ###### package.json
 ```json
 {
-  scripts:{
+  "scripts":{
     "tfg": "tfg"
   }
 }
