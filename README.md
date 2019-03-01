@@ -2,9 +2,38 @@ Templated Folder Generator
 ==================================
 
 # Installation
-```bash
 
+```bash
+npm i templated-folder-generator -g
 ```
+
+or locally
+
+```bash
+npm i templated-folder-generator -D
+```
+
+and use it with npm scripts
+
+###### package.json
+```json
+{
+  scripts:{
+    "tfg": "tfg"
+  }
+}
+```
+
+```bash
+npm run tfg -- g default-react-class
+```
+
+or npx
+```bash
+npx tfg g default-react-class
+```
+
+
 
 # Quick Start
 The generator comes with 2 react component templates. I will be using it for quickstart examples.

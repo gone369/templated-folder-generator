@@ -26,9 +26,9 @@
   "author": "Xun Chen",
   "license": "MIT",
   "dependencies": {
-    "app-root-path": "^2.1.0",
     "commander": "^2.19.0",
-    "handlebars": "^4.0.12"
+    "handlebars": "^4.0.12",
+    "pkg-dir": "^3.0.0"
   },
   "homepage": "https://github.com/gone369/templated-folder-generator#readme"
 }

@@ -1,6 +1,8 @@
 const Path = require('path')
 const fs = require('fs')
-const appRoot = require('app-root-path')
+const pkgDir = require('pkg-dir')
+
+const rootPath = pkgDir.sync(process.cwd())
 
 function last(arr) {
   return arr[arr.length - 1]
@@ -14,7 +16,7 @@ function getTemplateDirs(program) {
   let targetPaths = [];
 
   if(process.env.TEMPLATE_PATH){
-    targetPaths = [Path.resolve(appRoot.path, process.env.TEMPLATE_PATH)]
+    targetPaths = [Path.resolve(rootPath, process.env.TEMPLATE_PATH)]
   }
 
   if(program.path){
@@ -23,7 +25,7 @@ function getTemplateDirs(program) {
     //2 . check absolute path
     const absolutePath = Path.resolve(program.path)
     //3 . check relative path from appRoot
-    const appRootRelativePath = Path.resolve(appRoot.path, program.path)
+    const appRootRelativePath = Path.resolve(rootPath, program.path)
     targetPaths = [relativePath,absolutePath,appRootRelativePath]
   }
 
@@ -64,10 +66,10 @@ function isDirectory(source) {
 function getTemplateNamesFromPath(dirPath) {
   // get all template names from folder
   return fs
-    .readdirSync(dirPath)
-    .map(name => Path.join(dirPath, name))
-    .filter(isDirectory)
-    .map(dirPath => last(dirPath.split('/')))
+  .readdirSync(dirPath)
+  .map(name => Path.join(dirPath, name))
+  .filter(isDirectory)
+  .map(dirPath => last(dirPath.split('/')))
 }
 
 module.exports = {
