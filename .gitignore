@@ -1,1 +1,3 @@
 node_modules
+testEnv
+.DS_Store

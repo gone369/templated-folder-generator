@@ -1,4 +1,4 @@
-React Component Template Generator
+Templated Folder Generator
 ==================================
 
 # Installation
@@ -12,19 +12,19 @@ npm install git+ssh://git@gitlab.alipay-inc.com:xun.xc/react-component-template-
 
 ```bash
 cd path/to/my/new/react/component/directory
-rgen g ts-component
+tfg g ts-component
 ```
 
 or
 
 ```bash
-rgen g ts-component path/to/my/new/react/component/directory
+tfg g ts-component path/to/my/new/react/component/directory
 ```
 
 ## Generating Components with custom name:
 ```bash
 cd path/to/my/new/react/component/directory
-rgen g ts-component -n super-cool-component
+tfg g ts-component -n super-cool-component
 ```
 
 ## Generating Components with custom template folder
@@ -45,22 +45,22 @@ Example:
 2. Execute below commands to generate from your custom template
 ```bash
 cd path/to/my/new/react/component/directory
-rgen g my-less-template -p path/to/my/custom/template/folder
+tfg g my-less-template -p path/to/my/custom/template/folder
 ```
 Please Refer to [Template Creation](#template-creation) for how to create templates
 
 ## Check Available Templates
 ```bash
-rgen t
+tfg t
 ```
 ##### Checking Available Templates with your own template dir
 ```bash
-rgen t -p path/to/my/custom/template/folder
+tfg t -p path/to/my/custom/template/folder
 ```
 
 ## Dry Run (won't generate file)
 ```bash
-rgen g my-template -d
+tfg g my-template -d
 ```
 
 ## Custom Template Variables
@@ -75,7 +75,7 @@ please refer to [User Defined File Type Mapping](#user-defined-file-type-mapping
 
 Help:
 ```
-Usage: rgen [options] [command]
+Usage: tfg [options] [command]
 
 Options:
   -v, --version                 output the version number
@@ -158,13 +158,13 @@ function Person(){
 you can provide custom context like so:
 
 ```
-rgen g my-template -c '{"person":{ name:"lao da",age:"40"}'
+tfg g my-template -c '{"person":{ name:"Bob",age:"40"}'
 ```
 
 this will generate:
 ```js
 function Person(){
-  this.name = "lao da";
+  this.name = "Bob";
   this.age = 40;
 }
 ```
