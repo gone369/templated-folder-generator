@@ -3,36 +3,51 @@ Templated Folder Generator
 
 # Installation
 ```bash
-npm install git+ssh://git@gitlab.alipay-inc.com:xun.xc/react-component-template-generator.git
+
 ```
 
 # Quick Start
+The generator comes with 2 react component templates. I will be using it for quickstart examples.
 
 ## Generating Components
 
 ```bash
-cd path/to/my/new/react/component/directory
-tfg g ts-component
+cd path/to/target/folder
+tfg g <templateName>
 ```
 
 or
 
 ```bash
-tfg g ts-component path/to/my/new/react/component/directory
+tfg g <templateName> <path/to/target/folder>
+```
+
+#### Example:
+
+```bash
+cd src/my-react-component
+tfg g default-react-class
+```
+
+or
+
+```bash
+tfg g default-react-class path/to/my/new/react/component/directory
 ```
 
 ## Generating Components with custom name:
 ```bash
-cd path/to/my/new/react/component/directory
-tfg g ts-component -n super-cool-component
+cd
+tfg g default-react-class -n super-cool-component
 ```
 
 ## Generating Components with custom template folder
 
-Example:
+#### Example:
 1. create a folder with the below structure within your project
 #### template folder structure:
 ```
+├── package.json
 ├── templates
 │   ├── my-less-template
 │   │   ├── {{filename}}.js
@@ -44,9 +59,31 @@ Example:
 
 2. Execute below commands to generate from your custom template
 ```bash
-cd path/to/my/new/react/component/directory
-tfg g my-less-template -p path/to/my/custom/template/folder
+cd path/to/my/scss/folder
+tfg g my-scss-template -p <absolute or relative path to /templates | relative path to /templates from project root containing package.json>
 ```
+
+##### Example:
+```bash
+cd path/to/my/scss/folder
+tfg g my-scss-template -p ./templates
+```
+
+You can also use Environment Variable `TEMPLATE_PATH` to specify default path to search for the template and can be used in your package.json
+
+###### package.json
+```json
+{
+  "scripts": {
+    "gen": "TEMPLATE_PATH=templates tfg g"
+  }
+}
+```
+then use it like:
+```bash
+npm run gen -- my-scss-template
+```
+
 Please Refer to [Template Creation](#template-creation) for how to create templates
 
 ## Check Available Templates
@@ -106,36 +143,12 @@ rctg uses [handlebars.js](https://handlebarsjs.com/) syntax.
 
 ```js
 import * as React from 'react';
-import * as style from './index.less';
+import './index.less';
 
-interface IProps {
-  children?: JSX.Element[];
-}
-
-interface IState {
-  foo: boolean;
-}
-
-class {{component.name.capitalizedSnakeCase}} extends React.Component<IProps>{
-  static defaultProps = {
-  }
-  state = {
-    foo: false
-  }
-  /*
-  componentDidMount(){
-  }
-  shouldComponentUpdate(nextState,nextProps){
-    return true;
-  }
-  componentDidUpdate(prevProps,prevState){
-  }
-  componentWillUnmount(prevProps,prevState){
-  }
-  */
+class {{component.name.capitalizedSnakeCase}} extends React.Component{
   render(){
     return (
-      <div className={style.{{component.name.snakeCase}}>
+      <div className="{{component.name.snakeCase}}">
         {{component.name.original}}
       </div>
     );
@@ -157,9 +170,11 @@ function Person(){
 
 you can provide custom context like so:
 
+```bash
+tfg g my-template -c '{"person":{ "name":"Bob","age":"40"}'
 ```
-tfg g my-template -c '{"person":{ name:"Bob",age:"40"}'
-```
+
+###### Please note to put single quotes around the json string and double quotes on field names
 
 this will generate:
 ```js
@@ -169,7 +184,7 @@ function Person(){
 }
 ```
 
-rctg comes with a default set of context. Based either by the current working directory name (process.cwd()) or given -n --name <name> argument
+tfg comes with a default set of context. Based either by the current working directory name (process.cwd()) or given -n --name <name> argument
 
 suppose the user is in /Desktop/myProject/myComponent. But the user gave a name arg `-n myCoolComponent`. The context will be as follows:
 
@@ -190,9 +205,95 @@ const context = {
 };
 ```
 
-####
-
 ## User Defined File Type Mapping
 
+Suppose you had a template like below:
+```
+├── package.json
+├── templates
+│   ├── my-react-component
+│   │   ├── {{filename}}.js
+```
 
-//TODO
+but I want to change file extension from `.js` to `.jsx`
+you can do this:
+
+```bash
+tfg g my-template -f '{"js":"jsx"}'
+# will output my-react-component.jsx
+```
+
+
+###### Please note to not include the '.' and put single quotes around the json string and double quotes on field names
+
+## Change Filenames
+
+#### Generating with custom name:
+```bash
+tfg g default-react-class -n super-cool-component
+# super-cool-component.js
+```
+
+#### Generating with prefix :
+```bash
+tfg g default-react-class -x my-
+# my-super-cool-component.js
+```
+
+#### Generating with postfix :
+```bash
+tfg g default-react-class -X .test
+# my-super-cool-component.test.js
+```
+
+## Dry Run
+
+dry run will not output files but give you a stdout output of the compiled template
+```bash
+tfg g default-react-class g -d
+
+```
+
+stdout:
+```bash
+[Dry run] will generate file to path: /Users/xun/Code/templated-folder-generator/testEnv/src/test/index.jsx
+================== SOF ==========================
+import React, { Component } from 'react';
+import './index.css'
+
+export default Test extends Component{
+  static defaultProps = {
+  }
+  state = {
+  }
+  /*
+  componentWillMount(){
+  }
+  componentDidMount(){
+  }
+  shouldComponentUpdate(nextProps,nextState){
+    return true;
+  }
+  componentWillReceiveProps(nextProps,nextState){
+    return true;
+  }
+  componentWillUpdate(nextProps,nextState){
+  }
+  componentDidUpdate(prevProps,prevState){
+  }
+  componentWillUnmount(prevProps,prevState){
+  }
+  */
+  render(){
+    return (
+      <div className="test">
+        test
+      </div>
+    )
+  }
+}
+
+<<<<<<<<<<<<<<<<<< EOF <<<<<<<<<<<<<<<<<<<<<<<<<<
+
+done
+```

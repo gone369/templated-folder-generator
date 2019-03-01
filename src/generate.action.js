@@ -117,9 +117,9 @@ function generateAction(program) {
         const destFile = Path.resolve(
           process.cwd(),
           dest,
-          `${program.prefix ? program.prefix + '.' : ''}${fn}.${
-            program.postfix ? program.postfix + '.' : ''
-          }${fileType}`
+          `${program.prefix ? program.prefix : ''}${fn}${
+            program.postfix ? program.postfix : ''
+          }.${fileType}`
         )
 
         if (program.dryrun) {
