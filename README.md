@@ -285,7 +285,7 @@ tfg g default-react-class g -d
 
 stdout:
 ```bash
-[Dry run] will generate file to path: /Users/xun/Code/templated-folder-generator/testEnv/src/test/index.jsx
+[Dry run] will generate file to path: /absolute/path/to/target/folder
 ================== SOF ==========================
 import React, { Component } from 'react';
 import './index.css'
