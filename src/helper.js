@@ -2,7 +2,11 @@ const Path = require('path')
 const fs = require('fs')
 const pkgDir = require('pkg-dir')
 
-const rootPath = pkgDir.sync(process.cwd())
+const rootPath = pkgDir.sync(getCwd())
+
+function getCwd(){
+  return process.env.INIT_CWD || getCwd();
+}
 
 function last(arr) {
   return arr[arr.length - 1]
@@ -21,7 +25,7 @@ function getTemplateDirs(program) {
 
   if(program.path){
     // 1. check relative path from cwd
-    const relativePath = Path.resolve(process.cwd(), program.path)
+    const relativePath = Path.resolve(getCwd(), program.path)
     //2 . check absolute path
     const absolutePath = Path.resolve(program.path)
     //3 . check relative path from appRoot
@@ -76,5 +80,7 @@ module.exports = {
   getTemplateDirs,
   getTemplateNamesFromPath,
   getTemplateNamesFromRootPaths,
+  getCwd,
   last,
 }
+

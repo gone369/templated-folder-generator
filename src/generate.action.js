@@ -2,7 +2,7 @@ const Path = require('path')
 const fs = require('fs')
 const hbs = require('handlebars')
 
-const { last, getTemplateNamesFromRootPaths, getTemplateDirs } = require('./helper.js')
+const { last, getCwd, getTemplateNamesFromRootPaths, getTemplateDirs } = require('./helper.js')
 
 function generateAction(program) {
   try {
@@ -10,7 +10,7 @@ function generateAction(program) {
       //defaults
       program.filename = program.filename || 'index'
 
-      const targetPath = Path.resolve(process.cwd(), dest)
+      const targetPath = Path.resolve(getCwd(), dest)
       const targetDir = options.name || Path.dirname(targetPath)
 
       const templateCategories = getTemplateNamesFromRootPaths(program)
@@ -37,7 +37,7 @@ function generateAction(program) {
         const hbsTemplate = hbs.compile(file)
 
         //get cwd folder name
-        const dirName = last(process.cwd().split('/'))
+        const dirName = last(getCwd().split('/'))
         const userDefinedName = program.name
         let componentName = typeof userDefinedName === 'string' ? userDefinedName : dirName
 
@@ -115,7 +115,7 @@ function generateAction(program) {
           .join('.')
 
         const destFile = Path.resolve(
-          process.cwd(),
+          getCwd(),
           dest,
           `${program.prefix ? program.prefix : ''}${fn}${
             program.postfix ? program.postfix : ''
@@ -146,3 +146,4 @@ function generateAction(program) {
 }
 
 module.exports = generateAction
+
