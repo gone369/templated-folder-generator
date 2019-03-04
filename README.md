@@ -165,7 +165,7 @@ Commands:
 
 # Template Creation
 
-rctg uses [handlebars.js](https://handlebarsjs.com/) syntax.
+tfg uses [handlebars.js](https://handlebarsjs.com/) syntax.
 
 ## Default Template Variables:
 
