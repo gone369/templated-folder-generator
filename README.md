@@ -1,5 +1,6 @@
 Templated Folder Generator
 ==================================
+[![npm](https://img.shields.io/npm/v/templated-folder-generator.svg)](https://www.npmjs.com/package/templated-folder-generator) ![license](https://img.shields.io/npm/l/templated-folder-generator.svg) ![github-issues](https://img.shields.io/github/issues/gone369/templated-folder-generator.svg) ![npm-downloads](https://img.shields.io/npm/dt/templated-folder-generator.svg)
 
 # Installation
 
