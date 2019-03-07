@@ -5,7 +5,7 @@ const pkgDir = require('pkg-dir')
 const rootPath = pkgDir.sync(getCwd())
 
 function getCwd(){
-  return process.env.INIT_CWD || getCwd();
+  return process.env.INIT_CWD || process.cwd();
 }
 
 function last(arr) {
