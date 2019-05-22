@@ -23,7 +23,7 @@ function generateAction(program) {
         }
       })
       if (targetTemplateCategory === null) {
-        console.error("template does not exist. Run 'rgen templates' to see all available templates")
+        console.error("template does not exist. Run 'tfg templates' to see all available templates")
         process.exit(1)
       }
       const targetTemplateDir = Path.resolve(getTemplateDirs(program)[targetTemplateCategory], targetTemplate)
