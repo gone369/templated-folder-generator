@@ -3,6 +3,11 @@
   "version": "0.1.2",
   "description": "node templated folder generator",
   "main": "index.js",
+  "files": [
+    "src",
+    "index.js",
+    "README.md"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gone369/templated-folder-generator.git"

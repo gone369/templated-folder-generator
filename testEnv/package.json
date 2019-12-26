@@ -1,0 +1,15 @@
+{
+  "name": "testenv",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gen": "TEMPLATE_PATH=templates tfg g"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "templated-folder-generator": "file:.."
+  }
+}
