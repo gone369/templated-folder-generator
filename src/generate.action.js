@@ -73,6 +73,9 @@ function generateAction(program) {
               hypen: lowerCasedHypenName,
               snakeCase: snakeCaseName,
               capitalizedSnakeCase: capitalizedSnakeCaseName,
+              upperCase: componentName.toUpperCase(),
+              lowerCase: componentName.toLowerCase(),
+
             },
           },
           filename: program.filename,
