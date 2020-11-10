@@ -148,7 +148,7 @@ Options:
   -v, --version                 output the version number
   -p, --path <templatePath>     custom template folder path
   -n, --name <name>             change the name of the component (default is based on dest dir name)
-  -c, --context <context>       pass in a json string to add to handlebar context when compiling template output
+  -c, --context <context>       pass in a file path to a js file containing an export of a context builder callback
   -f, --filetypemap <map>       give a filetype map to change the file types of templates
   -x, --prefix <name>           add prefix to component file name
   -X, --postfix <name>          add postfix to component file name
@@ -175,10 +175,10 @@ tfg uses [handlebars.js](https://handlebarsjs.com/) syntax.
 import * as React from 'react';
 import './index.less';
 
-class {{component.name.capitalizedSnakeCase}} extends React.Component{
+class {{component.name.capitalizedCamelCase}} extends React.Component{
   render(){
     return (
-      <div className="{{component.name.snakeCase}}">
+      <div className="{{component.name.camelCase}}">
         {{component.name.original}}
       </div>
     );
@@ -198,13 +198,27 @@ function Person(){
 }
 ```
 
-you can provide custom context like so:
+you can create a custom context file:
 
-```bash
-tfg g my-template -c '{"person":{ "name":"Bob","age":"40"}'
+```js
+
+// context.js
+
+module.exports = function initContext({componentName, filename, dirName}) {
+  return {
+    name: 'Bob',
+    age: '40'
+  }
+}
+
+
 ```
 
-###### Please note to put single quotes around the json string and double quotes on field names
+then import it like so:
+
+```bash
+tfg g my-template -c [relative|absolute path to context.js]
+```
 
 this will generate:
 ```js
@@ -220,18 +234,20 @@ suppose the user is in /Desktop/myProject/myComponent. But the user gave a name 
 
 ```js
 const context = {
-  ...userDefinedContext,
   component: {
     name: {
       original: 'myCoolComponent',
       hypen: 'my-cool-component',
-      snakeCase: 'myCoolComponent',
-      capitalizedSnakeCase: 'MyCoolComponent',
+      snakeCase: 'my_cool_component',
+      lowerCasedSnakeCase: 'my_cool_component',
+      camelCase: 'myCoolComponent',
+      capitalizedCamelCase: 'MyCoolComponent',
+      upperCase: 'MYCOOLCOMPONENT',
+      lowerCase: 'mycoolcomponent'
     },
   },
   filename: 'index',
   dirName: 'myComponent',
-  userDefinedName: 'myCoolComponent'
 };
 ```
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import './test2.css'
+import './index.css'
 
-export default Test2 extends Component{
+export default TestComponent123 extends Component{
   static defaultProps = {
   }
   state = {
@@ -26,8 +26,16 @@ export default Test2 extends Component{
   */
   render(){
     return (
-      <div className="test2">
-        test2
+      <div className="testComponent123">
+        TestComponent123
+        Test_component123
+        test_component123
+        test-component123
+        
+        testcomponent123
+        TESTCOMPONENT123
+        testComponent123
+        TestComponent123
       </div>
     )
   }

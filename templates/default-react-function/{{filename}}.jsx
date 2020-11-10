@@ -1,13 +1,13 @@
 import React from 'react';
 import './{{filename}}.css'
 
-export default function {{component.name.capitalizedSnakeCase}}(props){
+export default function {{component.name.capitalizedCamelCase}}(props){
   return (
-    <div className="{{component.name.snakeCase}}">
+    <div className="{{component.name.camelCase}}">
       {{component.name.original}}
     </div>
   )
 }
 
-{{component.name.capitalizedSnakeCase}}.defaultProps = {
+{{component.name.capitalizedCamelCase}}.defaultProps = {
 }

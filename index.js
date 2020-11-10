@@ -19,7 +19,7 @@ program
   )
   .option(
     "-c, --context <context>",
-    "pass in a json string to add to handlebar context when compiling template output"
+    "pass in a file path to a js file containing an export of a context builder callback"
   )
   .option(
     "-f, --filetypemap <map>",

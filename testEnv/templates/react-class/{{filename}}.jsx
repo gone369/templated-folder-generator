@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './{{filename}}.css'
 
-export default {{component.name.capitalizedSnakeCase}} extends Component{
+export default {{component.name.capitalizedCamelCase}} extends Component{
   static defaultProps = {
   }
   state = {
@@ -26,8 +26,16 @@ export default {{component.name.capitalizedSnakeCase}} extends Component{
   */
   render(){
     return (
-      <div className="{{component.name.snakeCase}}">
+      <div className="{{component.name.camelCase}}">
         {{component.name.original}}
+        {{component.name.snakeCase}}
+        {{component.name.lowerCasedSnakeCase}}
+        {{component.name.hyphen}}
+        {{component.name.lowerCasedHyphen}}
+        {{component.name.lowerCase}}
+        {{component.name.upperCase}}
+        {{component.name.camelCase}}
+        {{component.name.capitalizedCamelCase}}
       </div>
     )
   }
