@@ -1,11 +1,12 @@
 {
   "name": "templated-folder-generator",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "node templated folder generator",
   "main": "index.js",
   "files": [
     "src",
     "index.js",
+    "templates",
     "README.md"
   ],
   "repository": {
